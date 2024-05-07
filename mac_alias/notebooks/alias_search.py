@@ -2,8 +2,20 @@
 # coding: utf-8
 
 # ## Get all Alias files on a macOS system
+# 
+# ### Installation:
+# Clone and create a Virtualenv using the requirements.txt file in the project root
+# 
+# ### Usage:
+# #### to find all alias files on your macOS system, and their underlying paths:
+# cd mac_alias/notebooks
+# python3 -m alias_search.py
+# 
+# #### to find alias files that start from a specific folder:
+# cd mac_alias/notebooks
+# python3 -m alias_search.py --onlyin  ~
 
-# In[169]:
+# In[178]:
 
 
 import xattr
@@ -16,6 +28,7 @@ import string
 import pdb
 import traceback
 import pandas as pd
+import datetime
 
 
 # In[78]:
@@ -59,7 +72,7 @@ def create_bookmarkData(new_path):
 
 
 
-# In[171]:
+# In[180]:
 
 
 def main(onlyin=None):
@@ -72,7 +85,7 @@ def main(onlyin=None):
     list_dict_bookmark_data = []
     for ap in alias_paths:
         bmd = get_bookmarkData(ap)
-        tbmd = None
+        tbmd = 'None'
         error = None
         if bmd is not None:
             try:
@@ -93,7 +106,7 @@ def get_arg(arg_id):
     return sys.argv[arg_indices[0]+1]
 
 
-# In[176]:
+# In[195]:
 
 
 # main(onlyin='../../')
@@ -103,7 +116,15 @@ if __name__=='__main__':
     df = pd.DataFrame(results)
     max_width = max([len(v) for v in df.alias.values])
     pd.options.display.max_colwidth = max_width
-    print(df)
+    n = datetime.datetime.now()
+    y = n.year
+    mn = n.month
+    d = n.day
+    h = n.hour
+    m = n.minute
+    s = n.second
+    t = n.strftime('%Y%m%d%H%M%S')
+    df.to_csv(f"../temp_folder/results_{t}.csv",index=False)
     # for alias,underlying in results.items():
     #     print(alias,underlying)
 
@@ -115,10 +136,16 @@ if __name__=='__main__':
 # print(mdfind.mdfind(['-onlyin',os.path.abspath('..'),'kMDItemKind==Alias']))
 
 
-# In[162]:
+# In[177]:
 
 
 # !jupyter nbconvert --to script alias_search.ipynb
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
