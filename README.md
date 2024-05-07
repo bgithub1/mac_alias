@@ -7,13 +7,13 @@ Clone and create a Virtualenv using the requirements.txt file in the project roo
 When using the `alias_search.py` python module, the results will be placed in csv files in the folder `mac_alias/mac_alias/temp_folder`.
 #### To find all alias files on your macOS system, and their underlying paths:
 ```
-cd mac_alias/notebooks
+cd mac_alias/mac_alias/notebooks
 python3 alias_search.py
 ```
 
 #### To find alias files that are limited to start from two folders up:
 ```
-cd mac_alias/notebooks
+cd mac_alias/mac_alias/notebooks
 python3 alias_search.py --onlyin  '../..'
 ```
 
