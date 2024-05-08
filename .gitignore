@@ -1,5 +1,7 @@
 *.log
 logfile
+dist
+build
 *.pyc
 .ipynb_checkpoints
 *.ipynb-e

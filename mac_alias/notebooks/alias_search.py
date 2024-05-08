@@ -7,15 +7,25 @@
 # Clone and create a Virtualenv using the requirements.txt file in the project root
 # 
 # ### Usage:
-# #### to find all alias files on your macOS system, and their underlying paths:
-# cd mac_alias/notebooks
-# python3 -m alias_search.py
+# When using the `alias_search.py` python module, the results will be placed in csv files in the folder `mac_alias/mac_alias/temp_folder`.
+# #### To find all alias files on your macOS system, and their underlying paths:
+# ```
+# cd mac_alias/mac_alias/notebooks
+# python3 alias_search.py
+# ```
 # 
-# #### to find alias files that start from a specific folder:
-# cd mac_alias/notebooks
-# python3 -m alias_search.py --onlyin  ~
+# #### To find alias files that are limited to start from two folders up:
+# ```
+# cd mac_alias/mac_alias/notebooks
+# python3 alias_search.py --onlyin  '../..'
+# ```
+# 
+# After running either of these commands, open the folder `mac_alias/mac_alias/temp_folder` and find the csv folder whose name is:
+# ```
+# results_YYYYmmddHHMMSS.csv
+# ```
 
-# In[178]:
+# In[201]:
 
 
 import xattr
@@ -29,6 +39,7 @@ import pdb
 import traceback
 import pandas as pd
 import datetime
+import pathlib
 
 
 # In[78]:
@@ -106,7 +117,7 @@ def get_arg(arg_id):
     return sys.argv[arg_indices[0]+1]
 
 
-# In[195]:
+# In[199]:
 
 
 # main(onlyin='../../')
@@ -124,7 +135,11 @@ if __name__=='__main__':
     m = n.minute
     s = n.second
     t = n.strftime('%Y%m%d%H%M%S')
-    df.to_csv(f"../temp_folder/results_{t}.csv",index=False)
+    out_folder = get_arg('--out_folder')
+    if out_folder is None:
+        out_folder = pathlib.Path.home()
+        
+    df.to_csv(f"{out_folder}/results_{t}.csv",index=False)
     # for alias,underlying in results.items():
     #     print(alias,underlying)
 
@@ -136,7 +151,7 @@ if __name__=='__main__':
 # print(mdfind.mdfind(['-onlyin',os.path.abspath('..'),'kMDItemKind==Alias']))
 
 
-# In[177]:
+# In[200]:
 
 
 # !jupyter nbconvert --to script alias_search.ipynb
