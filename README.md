@@ -1,4 +1,7 @@
 ## Get all Alias files on a macOS system
+This solution largely comes from this post on StackOverflow by https://stackoverflow.com/users/3307951/larryy: 
+
+https://stackoverflow.com/questions/48862093/how-to-read-change-and-write-macos-file-alias-from-python
 
 ### Installation:
 Clone and create a Virtualenv using the requirements.txt file in the project root
@@ -17,7 +20,4 @@ cd mac_alias/mac_alias/notebooks
 python3 alias_search.py --onlyin  '../..'
 ```
 
-After running either of these commands, open the folder `mac_alias/mac_alias/temp_folder` and find the csv folder whose name is:
-```
-results_YYYYmmddHHMMSS.csv
-```
+After running either of these commands, open either your home folder, or the folder you designated using the `--out_folder some_folder_path` command line option to find the csv folder whose file name is `results_YYYYmmddHHMMSS.csv`
